@@ -21,7 +21,7 @@ server.use(express.json())
 server.use(helmet())
 server.use(cors())
 
-server.use('/api/actions', logger, actionsRouter)
+// server.use('/api/actions', logger, actionsRouter)
 server.use('/api/projects', logger, projectsRouter)
 
 // Configure your server here

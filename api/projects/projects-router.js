@@ -6,6 +6,9 @@ const router = express.Router()
 // - [X] `[GET] /api/projects`
 //   - Returns an array of projects as the body of the response.
 //   - If there are no projects it responds with an empty array.
+// //   [GET] /api/projects                                                                                                                                                 
+// √ [1] sends back all projects that exist (61 ms)                                                                                                                  
+// √ [2] sends back empty array if no projects (48 ms) 
 router.get ('/', (req, res) => {
     Projects.get()
     .then(projects => {
@@ -25,6 +28,9 @@ router.get ('/', (req, res) => {
 //- [X] `[GET] /api/projects/:id`
 // - Returns a project with the given `id` as the body of the response.
 // - If there is no project with the given `id` it responds with a status code 404.
+// [GET] /api/projects/:id                                                                                                                                             
+//   √ [3] sends back the project with given id (32 ms)                                                                                                                
+//   √ [4] responds with a 404 if no project with given id (40 ms)
 router.get ('/:id', (req, res) => {
     Projects.get(req.params.id).then(project => {
         if (!project) {
@@ -45,6 +51,10 @@ router.get ('/:id', (req, res) => {
 // - [X] `[POST] /api/projects`
 //   - Returns the newly created project as the body of the response.
 //   - If the request body is missing any of the required fields it responds with a status code 400.
+// //   [POST] /api/projects                                                                                                                                                
+//  √ [5] responds with the newly created project (59 ms)                                                                                                             
+//  √ [6] inserts a new project into projects table (45 ms)                                                                                                           
+//  √ [7] responds with a 400 if the request body is missing name or description (44 ms)
 router.post ('/', (req, res) => {
     const newProject = req.body
     Projects.insert(newProject)
@@ -62,6 +72,10 @@ router.post ('/', (req, res) => {
 // - Returns the updated project as the body of the response.
 // - If there is no project with the given `id` it responds with a status code 404.
 // - If the request body is missing any of the required fields it responds with a status code 400.
+// //   [PUT] /api/projects/:id                                                                                                                                             
+//  √ [8] responds with the updated project (50 ms)                                                                                                                   
+//  √ [9] updates the project in the projects table (51 ms)                                                                                                           
+//  √ [10] responds with a 400 if the request body is missing name, description or completed (45 ms)
 router.put ('/:id', (req, res) => {
     const { id } = req.params
     if (!req.body.name || !req.body.description) {
@@ -84,6 +98,9 @@ router.put ('/:id', (req, res) => {
 // - [X] `[DELETE] /api/projects/:id`
 //   - Returns no response body.
 //   - If there is no project with the given `id` it responds with a status code 404.
+// //  [DELETE] /api/projects/:id                                                                                                                                          
+//  √ [11] deletes the action with the given id (50 ms)                                                                                                               
+//  √ [12] responds with a 404 if no project with given id (30 ms)
 router.delete ('/:id', (req, res) => {
     Projects.remove(req.params.id)
     .then((deletedProject) => {
@@ -105,6 +122,9 @@ router.delete ('/:id', (req, res) => {
 // - [X] `[GET] /api/projects/:id/actions`
 //   - Returns an array of actions (could be empty) belonging to a project with the given `id`.
 //   - If there is no project with the given `id` it responds with a status code 404.
+// //    [GET] /api/projects/:id/actions                                                                                                                                     
+//  √ [13] sends back the actions in project with given id (39 ms)
+//  √ [14] sends back empty array if no actions in project with given id (39 ms
 router.get ('/:id/actions', (req, res) => {
     Projects.get(req.params.id)
     .then((actions) => {
