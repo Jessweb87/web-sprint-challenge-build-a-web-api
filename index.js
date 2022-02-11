@@ -1,3 +1,14 @@
+const server = require('./api/server')
+
+const PORT = process.env.PORT || 8080
+const express = require('express')
+require('dotenv').config
+
+server.use(express.json())
+
+server.listen(PORT, () => {
+    console.log(`listening on port ${PORT}`)
+})
 /*
 play this: https://www.youtube.com/watch?v=d-diB65scQU
 
